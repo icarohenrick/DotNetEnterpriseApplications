@@ -17,7 +17,7 @@ namespace NSE.Pedidos.Domain.Pedidos
             decimal desconto = 0,
             Guid? voucherId = null)
         {
-            ClienteId = clienteId;
+            ClienteId = clienteId.Value;
             ValorTotal = valorTotal;
             _pedidoItems = pedidoItems;
 

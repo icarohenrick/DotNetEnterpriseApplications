@@ -24,7 +24,7 @@ namespace NSE.Pedidos.API.Application.Commands
         //Cartao
         public string NumeroCartao { get; set; }
         public string NomeCartao { get; set; }
-        public string ExpiracaoCartao { get; set; }]
+        public string ExpiracaoCartao { get; set; }
         public string CvvCartao { get; set; }
 
         public override bool EhValido()
