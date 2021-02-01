@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EasyNetQ" Version="6.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.abstractions" Version="5.0.0" />
+    <PackageReference Include="polly" Version="7.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NSE.Core\NSE.Core.csproj" />
+  </ItemGroup>
+
+</Project>
