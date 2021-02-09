@@ -24,7 +24,8 @@ namespace NSE.Clientes.API.Models
             string bairro, 
             string cep,
             string cidade,
-            string estado)
+            string estado, 
+            Guid clienteId)
         {
             Logradouro = logradouro;
             Numero = numero;
@@ -33,6 +34,10 @@ namespace NSE.Clientes.API.Models
             Cep = cep;
             Cidade = cidade;
             Estado = estado;
+            ClienteId = clienteId;
         }
+
+        //EF Constructor
+        protected Endereco() { }
     }
 }
