@@ -17,7 +17,7 @@ namespace NSE.WebApp.MVC.Services
         Task<ResponseResult> AdicionarItemCarrinho(ItemCarrinhoViewModel produto);
         Task<ResponseResult> AtualizarItemCarrinho(Guid produtoId, ItemCarrinhoViewModel produto);
         Task<ResponseResult> RemoverItemCarrinho(Guid produtoId);
-        Task<ResponseResult> AplicarVoucherDesconto(string voucher);
+        Task<ResponseResult> AplicarVoucherCarrinho(string voucher);
 
         //Pedido
         Task<ResponseResult> FinalizarPedido(PedidoTransacaoViewModel pedidoTransacao);
@@ -82,6 +82,7 @@ namespace NSE.WebApp.MVC.Services
 
             return RetornoOk();
         }
+
         public async Task<ResponseResult> AplicarVoucherCarrinho(string voucher)
         {
             var itemContent = ObterConteudo(voucher);
@@ -154,11 +155,6 @@ namespace NSE.WebApp.MVC.Services
             return pedido;
         }
 
-        public Task<ResponseResult> AplicarVoucherDesconto(string voucher)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion}
+        #endregion
     }
 }

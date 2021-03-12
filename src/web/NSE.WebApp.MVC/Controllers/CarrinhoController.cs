@@ -55,7 +55,7 @@ namespace NSE.WebApp.MVC.Controllers
         [HttpPost("carrinho/aplicar-voucher")]
         public async Task<IActionResult> AplicarVoucher(string voucherCodigo)
         {
-            var resposta = await _comprasBffService.AplicarVoucherDesconto(voucherCodigo);
+            var resposta = await _comprasBffService.AplicarVoucherCarrinho(voucherCodigo);
 
             if (ResponsePossuiErros(resposta)) return View("Index", await _comprasBffService.ObterCarrinho());
 
