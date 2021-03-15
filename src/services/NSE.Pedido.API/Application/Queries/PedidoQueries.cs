@@ -26,15 +26,16 @@ namespace NSE.Pedidos.API.Application.Queries
         public async Task<PedidoDTO> ObterUltimoPedido(Guid clienteId)
         {
             const string sql = @"
-                                SELECT p.Id as 'ProdutoId', p.Codigo, p.VoucherUtilizado, p.Desconto, p.ValorTotal, p.PedidoStatus,
-                                    p.Logradouro, p.Numero, p.Bairro, p.CEP, p.Complemento, p.Cidade, p.Estado,
-                                    PIT.Id as 'ProdutoItemId', PIT.ProdutoNome, PIT.Quantidade, PIT.ProdutoImagem, PIT.ValorUnitario
-                                FROM Pedidos p
-                                    INNER JOIN PedidoItems PIT ON P.Id = PIT.PedidoId
-                                WHERE p.ClienteId = @clienteId
-                                    AND P.DataCadastro Between DateAdd(minute, -3, GETDATE()) AND DateAdd(minute, 0, GETDATE())
-                                    AND p.PedidoStatus = 1
-                                ORDER BY p.DataCadastro DESC";
+                                SELECT P.DATACADASTRO,
+                                    P.ID AS 'ProdutoId', P.CODIGO, P.VOUCHERUTILIZADO, P.DESCONTO, P.VALORTOTAL,P.PEDIDOSTATUS,
+                                    P.LOGRADOURO,P.NUMERO, P.BAIRRO, P.CEP, P.COMPLEMENTO, P.CIDADE, P.ESTADO,
+                                    PIT.ID AS 'ProdutoItemId',PIT.PRODUTONOME, PIT.QUANTIDADE, PIT.PRODUTOIMAGEM, PIT.VALORUNITARIO 
+                                FROM PEDIDOS P 
+                                    INNER JOIN PEDIDOITEMS PIT ON P.ID = PIT.PEDIDOID 
+                                WHERE P.CLIENTEID = @clienteId 
+                                    AND P.DATACADASTRO between DATEADD(minute, -3,  GETDATE()) and DATEADD(minute, 0,  GETDATE())
+                                    AND P.PEDIDOSTATUS = 1 
+                                ORDER BY P.DATACADASTRO DESC";
 
             var pedido = await _pedidoRepository.ObterConexao()
                 .QueryAsync<dynamic>(sql, new { clienteId });
@@ -53,22 +54,23 @@ namespace NSE.Pedidos.API.Application.Queries
         {
             var pedido = new PedidoDTO
             {
-                Codigo = result[0].Codigo,
-                Status = result[0].PedidoStatus,
-                ValorTotal = result[0].ValorTotal,
-                Desconto = result[0].Desconto,
-                VoucherCodigo = result[0].VoucherUtilizado,
+                Codigo = result[0].CODIGO,
+                Data = result[0].DATACADASTRO,
+                Status = result[0].PEDIDOSTATUS,
+                ValorTotal = result[0].VALORTOTAL,
+                Desconto = result[0].DESCONTO,
+                VoucherUtilizado = result[0].VOUCHERUTILIZADO,
 
                 PedidoItems = new List<PedidoItemDTO>(),
                 Endereco = new EnderecoDTO
                 {
-                    Logradouro = result[0].Logradouro,
-                    Bairro = result[0].Bairro,
-                    Cep = result[0].Cep,
-                    Cidade = result[0].Cidade,
-                    Complemento = result[0].Complemento,
-                    Estado = result[0].Estado,
-                    Numero = result[0].Numero
+                    Logradouro = result[0].LOGRADOURO,
+                    Bairro = result[0].BAIRRO,
+                    Cep = result[0].CEP,
+                    Cidade = result[0].CIDADE,
+                    Complemento = result[0].COMPLEMENTO,
+                    Estado = result[0].ESTADO,
+                    Numero = result[0].NUMERO
                 }
             };
 
@@ -76,10 +78,10 @@ namespace NSE.Pedidos.API.Application.Queries
             {
                 var pedidoItem = new PedidoItemDTO
                 {
-                    Nome = item.ProdutoNome,
-                    Valor = item.ValorUnitario,
-                    Quantidade = item.Quantidade,
-                    Imagem = item.ProdutoImagem
+                    Nome = item.PRODUTONOME,
+                    Valor = item.VALORUNITARIO,
+                    Quantidade = item.QUANTIDADE,
+                    Imagem = item.PRODUTOIMAGEM
                 };
 
                 pedido.PedidoItems.Add(pedidoItem);

@@ -33,19 +33,23 @@ namespace NSE.WebApp.MVC.Controllers
         [HttpGet("pagamento")]
         public async Task<IActionResult> Pagamento()
         {
-            await Task.CompletedTask;
-            return null;
+            var carrinho = await _comprasBffService.ObterCarrinho();
+            if (carrinho.Itens.Count == 0) return RedirectToAction("Index", "Carrinho");
+
+            var pedido = _comprasBffService.MapearParaPedido(carrinho, null);
+
+            return View(pedido);
         }
 
         [HttpPost("finalizar-pedido")]
         public async Task<IActionResult> FinalizarPedido(PedidoTransacaoViewModel pedidoTransacao)
         {
-            if (ModelState.IsValid) return View("Pagamento", 
-                _comprasBffService.MapearParaPedido(await _comprasBffService.ObterCarrinho(), null));
+            if (!ModelState.IsValid) return View("Pagamento", _comprasBffService.MapearParaPedido(
+               await _comprasBffService.ObterCarrinho(), null));
 
             var retorno = await _comprasBffService.FinalizarPedido(pedidoTransacao);
 
-            if(ResponsePossuiErros(retorno))
+            if (ResponsePossuiErros(retorno))
             {
                 var carrinho = await _comprasBffService.ObterCarrinho();
                 if (carrinho.Itens.Count == 0) return RedirectToAction("Index", "Carrinho");
@@ -57,7 +61,8 @@ namespace NSE.WebApp.MVC.Controllers
             return RedirectToAction("PedidoConcluido");
         }
 
-        [HttpGet("pedido-concluido")]
+        [HttpGet]
+        [Route("pedido-concluido")]
         public async Task<IActionResult> PedidoConcluido()
         {
             return View("ConfirmacaoPedido", await _comprasBffService.ObterUltimoPedido());

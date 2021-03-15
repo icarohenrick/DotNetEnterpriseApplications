@@ -46,7 +46,7 @@ namespace NSE.WebApp.MVC.Services
 
             if (response.StatusCode == HttpStatusCode.NotFound) return null;
 
-            if(TratarErrosResponse(response)) return await DeserializarObjetoResponse<ResponseResult>(response);
+            if(!TratarErrosResponse(response)) return await DeserializarObjetoResponse<ResponseResult>(response);
 
             return RetornoOk();
         }

@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Configuration\PollyExtensions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Configuration\DependencyInjectionConfig.cs~RF225ea71.TMP" />
   </ItemGroup>
 
