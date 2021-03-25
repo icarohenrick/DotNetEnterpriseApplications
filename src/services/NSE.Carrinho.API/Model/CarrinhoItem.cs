@@ -1,12 +1,15 @@
-﻿using FluentValidation;
-using System;
+﻿using System;
 using System.Text.Json.Serialization;
+using FluentValidation;
 
 namespace NSE.Carrinho.API.Model
 {
     public class CarrinhoItem
     {
-        public CarrinhoItem() => Id = Guid.NewGuid();
+        public CarrinhoItem()
+        {
+            Id = Guid.NewGuid();
+        }
 
         public Guid Id { get; set; }
         public Guid ProdutoId { get; set; }
@@ -20,19 +23,29 @@ namespace NSE.Carrinho.API.Model
         [JsonIgnore]
         public CarrinhoCliente CarrinhoCliente { get; set; }
 
-        internal void AssociarCarrinho(Guid carrinhoId) => CarrinhoId = carrinhoId;
+        internal void AssociarCarrinho(Guid carrinhoId)
+        {
+            CarrinhoId = carrinhoId;
+        }
 
-        internal decimal CalcularValor() => Quantidade * Valor;
+        internal decimal CalcularValor()
+        {
+            return Quantidade * Valor;
+        }
 
-        internal void AdicionarUnidades(int unidades) => Quantidade += unidades;
+        internal void AdicionarUnidades(int unidades)
+        {
+            Quantidade += unidades;
+        }
 
-        internal void AtualizarUnidades(int unidades) => Quantidade = unidades;
+        internal void AtualizarUnidades(int unidades)
+        {
+            Quantidade = unidades;
+        }
 
         internal bool EhValido()
         {
-            var result = new ItemCarrinhoValidation().Validate(this);
-
-            return result.IsValid;
+            return new ItemCarrinhoValidation().Validate(this).IsValid;
         }
 
         public class ItemCarrinhoValidation : AbstractValidator<CarrinhoItem>
@@ -52,8 +65,8 @@ namespace NSE.Carrinho.API.Model
                     .WithMessage(item => $"A quantidade mínima para o {item.Nome} é 1");
 
                 RuleFor(c => c.Quantidade)
-                    .LessThanOrEqualTo(CarrinhoCliente.Max_Quantidade_Item)
-                    .WithMessage(item => $"A quantidade máxima do {item.Nome} é {CarrinhoCliente.Max_Quantidade_Item}");
+                    .LessThanOrEqualTo(CarrinhoCliente.MAX_QUANTIDADE_ITEM)
+                    .WithMessage(item => $"A quantidade máxima do {item.Nome} é {CarrinhoCliente.MAX_QUANTIDADE_ITEM}");
 
                 RuleFor(c => c.Valor)
                     .GreaterThan(0)

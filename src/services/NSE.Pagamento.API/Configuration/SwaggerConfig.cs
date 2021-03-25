@@ -14,8 +14,8 @@ namespace NSE.Pagamentos.API.Configuration
                 c.SwaggerDoc("v1", new OpenApiInfo()
                 {
                     Title = "NerdStore Enterprise Pagamentos API",
-                    Description = "Esta API faz parte do curso ASP.NET Core Enterprise Applications.",
-                    Contact = new OpenApiContact() { Name = "Eduardo Pires", Email = "contato@desenvolvedor.io" },
+                    Description = "Esta API faz parte do Curso de ASP.Net Core Enterprise Applications",
+                    Contact = new OpenApiContact() { Name = "IHTech Applications", Email = "contact@ihtech.com.br " },
                     License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
                 });
 

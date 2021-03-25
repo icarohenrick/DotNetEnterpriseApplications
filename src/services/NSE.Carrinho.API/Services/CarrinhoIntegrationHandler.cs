@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSE.Carrinho.API.Data;
 using NSE.Core.Messages.Integration;
 using NSE.MessageBus;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace NSE.Carrinho.API.Services
 {
@@ -15,12 +15,11 @@ namespace NSE.Carrinho.API.Services
         private readonly IMessageBus _bus;
         private readonly IServiceProvider _serviceProvider;
 
-        public CarrinhoIntegrationHandler(IMessageBus bus, IServiceProvider serviceProvider)
+        public CarrinhoIntegrationHandler(IServiceProvider serviceProvider, IMessageBus bus)
         {
-            _bus = bus;
             _serviceProvider = serviceProvider;
+            _bus = bus;
         }
-
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             SetSubscribers();
@@ -29,9 +28,8 @@ namespace NSE.Carrinho.API.Services
 
         private void SetSubscribers()
         {
-            _bus.SubscribeAsync<PedidoRealizadoIntegrationEvent>(
-                "PedidoRealizado", 
-                async request => await ApagarCarrinho(request));
+            _bus.SubscribeAsync<PedidoRealizadoIntegrationEvent>("PedidoRealizado", async request =>
+                await ApagarCarrinho(request));
         }
 
         private async Task ApagarCarrinho(PedidoRealizadoIntegrationEvent message)
@@ -39,9 +37,10 @@ namespace NSE.Carrinho.API.Services
             using var scope = _serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<CarrinhoContext>();
 
-            var carrinho = await context.CarrinhoClientes.FirstOrDefaultAsync(c => c.ClienteId == message.ClienteId);
+            var carrinho = await context.CarrinhoClientes
+                .FirstOrDefaultAsync(c => c.ClienteId == message.ClienteId);
 
-            if(carrinho != null)
+            if (carrinho != null)
             {
                 context.CarrinhoClientes.Remove(carrinho);
                 await context.SaveChangesAsync();

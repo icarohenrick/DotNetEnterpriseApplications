@@ -1,14 +1,11 @@
 ﻿using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using NSE.Carrinho.API.Model;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace NSE.Carrinho.API.Data
 {
-    public class CarrinhoContext : DbContext
+    public sealed class CarrinhoContext : DbContext
     {
         public CarrinhoContext(DbContextOptions<CarrinhoContext> options) : base(options)
         {

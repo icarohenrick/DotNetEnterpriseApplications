@@ -2,15 +2,15 @@
 {
     public class Voucher
     {
-        public string Codigo { get; set; }
         public decimal? Percentual { get; set; }
         public decimal? ValorDesconto { get; set; }
+        public string Codigo { get; set; }
         public TipoDescontoVoucher TipoDesconto { get; set; }
     }
 
     public enum TipoDescontoVoucher
     {
-        Porcentagem,
-        Valor
+        Porcentagem = 0,
+        Valor = 1
     }
 }

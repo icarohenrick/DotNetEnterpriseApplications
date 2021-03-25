@@ -1,17 +1,25 @@
-﻿using FluentValidation;
-using FluentValidation.Results;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace NSE.Carrinho.API.Model
 {
     public class CarrinhoCliente
     {
-        internal const int Max_Quantidade_Item = 5;
+        internal const int MAX_QUANTIDADE_ITEM = 5;
 
-        public CarrinhoCliente() {}
+        public Guid Id { get; set; }
+        public Guid ClienteId { get; set; }
+        public decimal ValorTotal { get; set; }
+        public List<CarrinhoItem> Itens { get; set; } = new List<CarrinhoItem>();
+        public ValidationResult ValidationResult { get; set; }
+
+        public bool VoucherUtilizado { get; set; }
+        public decimal Desconto { get; set; }
+
+        public Voucher Voucher { get; set; }
 
         public CarrinhoCliente(Guid clienteId)
         {
@@ -19,23 +27,19 @@ namespace NSE.Carrinho.API.Model
             ClienteId = clienteId;
         }
 
-        public Guid Id { get; set; }
-        public Guid ClienteId { get; set; }
-        public decimal ValorTotal { get; set; }
-        public List<CarrinhoItem> Itens { get; set; } = new List<CarrinhoItem>();
-        
-        public bool VoucherUtilizado { get; set; }
-        public decimal Desconto { get; set; }
-        
-        public Voucher Voucher { get; set; }
-
-        public ValidationResult ValidationResult { get; set; }
+        public CarrinhoCliente() { }
 
         public void AplicarVoucher(Voucher voucher)
         {
             Voucher = voucher;
             VoucherUtilizado = true;
             CalcularValorCarrinho();
+        }
+
+        internal void CalcularValorCarrinho()
+        {
+            ValorTotal = Itens.Sum(p => p.CalcularValor());
+            CalcularValorTotalDesconto();
         }
 
         private void CalcularValorTotalDesconto()
@@ -45,9 +49,9 @@ namespace NSE.Carrinho.API.Model
             decimal desconto = 0;
             var valor = ValorTotal;
 
-            if(Voucher.TipoDesconto == TipoDescontoVoucher.Porcentagem)
+            if (Voucher.TipoDesconto == TipoDescontoVoucher.Porcentagem)
             {
-                if(Voucher.Percentual.HasValue)
+                if (Voucher.Percentual.HasValue)
                 {
                     desconto = (valor * Voucher.Percentual.Value) / 100;
                     valor -= desconto;
@@ -55,7 +59,7 @@ namespace NSE.Carrinho.API.Model
             }
             else
             {
-                if(Voucher.ValorDesconto.HasValue)
+                if (Voucher.ValorDesconto.HasValue)
                 {
                     desconto = Voucher.ValorDesconto.Value;
                     valor -= desconto;
@@ -66,26 +70,23 @@ namespace NSE.Carrinho.API.Model
             Desconto = desconto;
         }
 
-        internal void CalcularValorCarrinho()
+        internal bool CarrinhoItemExistente(CarrinhoItem item)
         {
-            ValorTotal = Itens.Sum(p => p.CalcularValor());
-            CalcularValorTotalDesconto();
+            return Itens.Any(p => p.ProdutoId == item.ProdutoId);
         }
 
-        internal bool CarrinhoItemExistente(CarrinhoItem item) => Itens.Any(p => p.ProdutoId == item.ProdutoId);
-
-        internal CarrinhoItem ObterPorProdutoId(Guid produtoId) => Itens.FirstOrDefault(p => p.ProdutoId == produtoId);
+        internal CarrinhoItem ObterPorProdutoId(Guid produtoId)
+        {
+            return Itens.FirstOrDefault(p => p.ProdutoId == produtoId);
+        }
 
         internal void AdicionarItem(CarrinhoItem item)
         {
-            if (!item.EhValido()) return;
-
             item.AssociarCarrinho(Id);
 
-            if(CarrinhoItemExistente(item))
+            if (CarrinhoItemExistente(item))
             {
                 var itemExistente = ObterPorProdutoId(item.ProdutoId);
-
                 itemExistente.AdicionarUnidades(item.Quantidade);
 
                 item = itemExistente;
@@ -98,8 +99,7 @@ namespace NSE.Carrinho.API.Model
 
         internal void AtualizarItem(CarrinhoItem item)
         {
-            if (!item.EhValido()) return;
-            item.AssociarCarrinho(item.CarrinhoId);
+            item.AssociarCarrinho(Id);
 
             var itemExistente = ObterPorProdutoId(item.ProdutoId);
 
@@ -118,7 +118,6 @@ namespace NSE.Carrinho.API.Model
         internal void RemoverItem(CarrinhoItem item)
         {
             Itens.Remove(ObterPorProdutoId(item.ProdutoId));
-
             CalcularValorCarrinho();
         }
 
@@ -126,7 +125,6 @@ namespace NSE.Carrinho.API.Model
         {
             var erros = Itens.SelectMany(i => new CarrinhoItem.ItemCarrinhoValidation().Validate(i).Errors).ToList();
             erros.AddRange(new CarrinhoClienteValidation().Validate(this).Errors);
-
             ValidationResult = new ValidationResult(erros);
 
             return ValidationResult.IsValid;
@@ -138,16 +136,18 @@ namespace NSE.Carrinho.API.Model
             {
                 RuleFor(c => c.ClienteId)
                     .NotEqual(Guid.Empty)
-                    .WithMessage("Cliente não reconhecido.");
+                    .WithMessage("Cliente não reconhecido");
 
                 RuleFor(c => c.Itens.Count)
                     .GreaterThan(0)
-                    .WithMessage($"O carrinho não possuí itens");
+                    .WithMessage("O carrinho não possui itens");
 
                 RuleFor(c => c.ValorTotal)
                     .GreaterThan(0)
-                    .WithMessage($"O valor total do carrinho precisa ser maior que 0");
+                    .WithMessage("O valor total do carrinho precisa ser maior que 0");
             }
         }
     }
 }
+
+

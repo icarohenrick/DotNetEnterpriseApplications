@@ -48,9 +48,7 @@ namespace NSE.Pagamentos.API.Services
         private async Task<ResponseMessage> AutorizarPagamento(PedidoIniciadoIntegrationEvent message)
         {
             using var scope = _serviceProvider.CreateScope();
-            
             var pagamentoService = scope.ServiceProvider.GetRequiredService<IPagamentoService>();
-            
             var pagamento = new Pagamento
             {
                 PedidoId = message.PedidoId,
