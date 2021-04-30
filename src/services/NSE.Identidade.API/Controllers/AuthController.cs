@@ -9,8 +9,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using NetDevPack.Security.JwtSigningCredentials.Interfaces;
 using NFE.WepAPI.Core.Controllers;
 using NFE.WepAPI.Core.Identidade;
+using NFE.WepAPI.Core.Usuario;
 using NSE.Core.Messages.Integration;
 using NSE.Identidade.API.Models;
 using NSE.MessageBus;
@@ -23,17 +25,24 @@ namespace NSE.Identidade.API.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
+        private readonly IAspNetUser _aspNetUser;
+        private readonly IJsonWebKeySetService _jwksService;
+
         private readonly IMessageBus _bus;
 
         public AuthController(
             SignInManager<IdentityUser> signInManager, 
             UserManager<IdentityUser> userManager,
             IOptions<AppSettings> appSettings,
+            IAspNetUser aspNetUser,
+            IJsonWebKeySetService jwksService,
             IMessageBus bus)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = appSettings.Value;
+            _aspNetUser = aspNetUser;
+            _jwksService = jwksService;
             _bus = bus;
         }
 
@@ -120,6 +129,8 @@ namespace NSE.Identidade.API.Controllers
 
         private string CodificarToken(ClaimsIdentity identityClaims)
         {
+            #region Autenticação Syncrona
+            /*
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
 
@@ -130,6 +141,24 @@ namespace NSE.Identidade.API.Controllers
                 Subject = identityClaims,
                 Expires = DateTime.UtcNow.AddHours(_appSettings.ExpiracaoHoras),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            });
+
+            return tokenHandler.WriteToken(token);
+            */
+            #endregion
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var currentIssuer = $"{_aspNetUser.ObterHttpContext().Request.Scheme}://{_aspNetUser.ObterHttpContext().Request.Host}";
+
+            var key = _jwksService.GetCurrent();
+
+            var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
+            {
+                Issuer = currentIssuer,
+                Subject = identityClaims,
+                Expires = DateTime.UtcNow.AddHours(1),
+                SigningCredentials = key
             });
 
             return tokenHandler.WriteToken(token);

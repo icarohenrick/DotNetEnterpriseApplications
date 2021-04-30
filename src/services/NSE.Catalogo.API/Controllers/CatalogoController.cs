@@ -18,7 +18,11 @@ namespace NSE.Catalogo.API.Controllers
 
         [AllowAnonymous]
         [HttpGet("catalogo/produtos")]
-        public async Task<IEnumerable<Produto>> Index() => await _produtoRepository.ObterProdutos();
+        public async Task<PagedResult<Produto>> Index(
+            [FromQuery] int ps=3, //Quantos Registros
+            [FromQuery] int page = 1, //Qual pagina estou
+            [FromQuery] string q = null) 
+            => await _produtoRepository.ObterProdutos(ps, page, q);
 
         [ClaimsAuthorize("Catalogo", "Ler")]
         [HttpGet("catalogo/produtos/{id}")]

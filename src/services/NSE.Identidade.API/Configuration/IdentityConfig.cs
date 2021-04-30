@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NetDevPack.Security.JwtSigningCredentials;
 using NFE.WepAPI.Core.Identidade;
 using NSE.Identidade.API.Data;
 using NSE.Identidade.API.Extensions;
@@ -14,6 +15,9 @@ namespace NSE.Identidade.API.Configuration
         public static IServiceCollection AddIdentityConfiguration(
             this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddJwksManager(options => options.Algorithm = Algorithm.ES256)
+                .PersistKeysToDatabaseStore<ApplicationDbContext>();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
