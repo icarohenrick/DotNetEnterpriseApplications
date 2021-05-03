@@ -21,7 +21,10 @@ namespace NFE.WepAPI.Core.Usuario
         
         public string ObterUserToken()
             => !EstaAutenticado() ? string.Empty : _accessor.HttpContext.User.GetUserToken();
-        
+
+        public string ObterUserRefreshToken()
+             => !EstaAutenticado() ? string.Empty : _accessor.HttpContext.User.GetUserRefreshToken();
+
         public bool EstaAutenticado()
             => _accessor.HttpContext.User.Identity.IsAuthenticated;
 

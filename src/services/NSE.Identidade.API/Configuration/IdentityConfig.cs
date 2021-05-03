@@ -15,6 +15,10 @@ namespace NSE.Identidade.API.Configuration
         public static IServiceCollection AddIdentityConfiguration(
             this IServiceCollection services, IConfiguration configuration)
         {
+
+            var appSettingsSection = configuration.GetSection("AppTokenSettings");
+            services.Configure<AppTokenSettings>(appSettingsSection);
+
             services.AddJwksManager(options => options.Algorithm = Algorithm.ES256)
                 .PersistKeysToDatabaseStore<ApplicationDbContext>();
 
@@ -27,7 +31,8 @@ namespace NSE.Identidade.API.Configuration
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddJwtConfiguration(configuration);
+            //Seriço Sincrono
+            //services.AddJwtConfiguration(configuration);
 
             return services;
         }

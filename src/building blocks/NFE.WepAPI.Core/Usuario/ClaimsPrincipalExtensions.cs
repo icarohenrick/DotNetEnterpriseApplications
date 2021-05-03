@@ -37,5 +37,16 @@ namespace NFE.WepAPI.Core.Usuario
 
             return claim?.Value;
         }
+
+        public static string GetUserRefreshToken(this ClaimsPrincipal principal)
+        {
+            if(principal is null)
+            {
+                throw new ArgumentException(nameof(principal));
+            }
+
+            var claim = principal.FindFirst("RefreshToken");
+            return claim?.Value;
+        }
     }
 }

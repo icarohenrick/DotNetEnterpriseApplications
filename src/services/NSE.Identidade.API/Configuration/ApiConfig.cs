@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using NetDevPack.Security.JwtSigningCredentials.AspNetCore;
 using NFE.WepAPI.Core.Identidade;
 using NFE.WepAPI.Core.Usuario;
+using NSE.Identidade.API.Services;
 
 namespace NSE.Identidade.API.Configuration
 {
@@ -14,6 +15,7 @@ namespace NSE.Identidade.API.Configuration
         {
             services.AddControllers();
 
+            services.AddScoped<AuthenticationService>();
             services.AddScoped<IAspNetUser, AspNetUser>();
 
             return services;
