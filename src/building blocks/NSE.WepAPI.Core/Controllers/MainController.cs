@@ -5,7 +5,7 @@ using NSE.Core.Comunication;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NFE.WepAPI.Core.Controllers
+namespace NSE.WepAPI.Core.Controllers
 {
     [ApiController]
     public abstract class MainController : Controller

@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetDevPack.Security.JwtSigningCredentials.AspNetCore;
-using NFE.WepAPI.Core.Identidade;
-using NFE.WepAPI.Core.Usuario;
 using NSE.Identidade.API.Services;
+using NSE.WepAPI.Core.Identidade;
+using NSE.WepAPI.Core.Usuario;
 
 namespace NSE.Identidade.API.Configuration
 {

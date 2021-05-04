@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NFE.WepAPI.Core.Controllers;
-using NFE.WepAPI.Core.Identidade;
 using NSE.Catalogo.API.Models;
+using NSE.WepAPI.Core.Controllers;
+using NSE.WepAPI.Core.Identidade;
 
 namespace NSE.Catalogo.API.Controllers
 {

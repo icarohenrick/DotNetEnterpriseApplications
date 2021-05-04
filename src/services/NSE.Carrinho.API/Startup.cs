@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NFE.WepAPI.Core.Identidade;
 using NSE.Carrinho.API.Configuration;
+using NSE.WepAPI.Core.Identidade;
 
 namespace NSE.Carrinho.API
 {

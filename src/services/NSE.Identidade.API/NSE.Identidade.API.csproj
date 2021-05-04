@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\building blocks\NFE.WepAPI.Core\NSE.WepAPI.Core.csproj" />
     <ProjectReference Include="..\..\building blocks\NSE.Core\NSE.Core.csproj" />
     <ProjectReference Include="..\NSE.Cliente.API\NSE.Clientes.API.csproj" />
   </ItemGroup>

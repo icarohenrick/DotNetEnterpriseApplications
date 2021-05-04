@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Claims;
 
-namespace NFE.WepAPI.Core.Usuario
+namespace NSE.WepAPI.Core.Usuario
 {
     public static class ClaimsPrincipalExtensions
     {

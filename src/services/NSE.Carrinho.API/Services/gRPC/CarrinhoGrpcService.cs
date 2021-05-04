@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using NFE.WepAPI.Core.Usuario;
 using NSE.Carrinho.API.Data;
 using NSE.Carrinho.API.Model;
 using NSE.Carrinho.API.Service.gRPC;
+using NSE.WepAPI.Core.Usuario;
 using System.Threading.Tasks;
 
 namespace NSE.Carrinho.API.Services.gRPC

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace NFE.WepAPI.Core.Usuario
+namespace NSE.WepAPI.Core.Usuario
 {
     public interface IAspNetUser
     {

@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetDevPack.Security.JwtExtensions;
 
-namespace NFE.WepAPI.Core.Identidade
+namespace NSE.WepAPI.Core.Identidade
 {
     public static class JwtConfig
     {

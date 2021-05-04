@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NFE.WepAPI.Core.Controllers;
 using NSE.Bff.Compras.Models;
 using NSE.Bff.Compras.Services;
+using NSE.WepAPI.Core.Controllers;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;

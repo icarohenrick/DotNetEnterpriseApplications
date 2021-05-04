@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using NFE.WepAPI.Core.Usuario;
 using NSE.Pagamentos.API.Data;
 using NSE.Pagamentos.API.Data.Repository;
 using NSE.Pagamentos.API.Models;
 using NSE.Pagamentos.API.Services;
 using NSE.Pagamentos.CardAntiCorruption;
 using NSE.Pagamentos.Facade;
+using NSE.WepAPI.Core.Usuario;
 
 namespace NSE.Pagamentos.API.Configuration
 {

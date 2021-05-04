@@ -1,4 +1,4 @@
-﻿namespace NFE.WepAPI.Core.Identidade
+﻿namespace NSE.WepAPI.Core.Identidade
 {
     #region App Settings - Chave Simetrica
     //public class AppSettings

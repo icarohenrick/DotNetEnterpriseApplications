@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NFE.WepAPI.Core.Identidade;
 using NSE.Bff.Compras.Configuration;
+using NSE.WepAPI.Core.Identidade;
 
 namespace NSE.Bff.Compras
 {
@@ -39,6 +39,8 @@ namespace NSE.Bff.Compras
             services.RegisterServices();
 
             services.AddMessageBusConfiguration(Configuration);
+
+            services.ConfigureGrpcServices(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

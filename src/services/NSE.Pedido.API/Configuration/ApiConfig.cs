@@ -4,8 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NFE.WepAPI.Core.Identidade;
 using NSE.Pedidos.Infra.Data;
+using NSE.WepAPI.Core.Identidade;
 
 namespace NSE.Pedidos.API.Configuration
 {

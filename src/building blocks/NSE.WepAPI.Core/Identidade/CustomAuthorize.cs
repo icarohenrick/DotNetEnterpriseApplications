@@ -7,7 +7,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
-namespace NFE.WepAPI.Core.Identidade
+namespace NSE.WepAPI.Core.Identidade
 {
     public class CustomAuthorization
     {

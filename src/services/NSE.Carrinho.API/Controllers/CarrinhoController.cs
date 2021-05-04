@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NFE.WepAPI.Core.Controllers;
-using NFE.WepAPI.Core.Usuario;
 using NSE.Carrinho.API.Data;
 using NSE.Carrinho.API.Model;
+using NSE.WepAPI.Core.Controllers;
+using NSE.WepAPI.Core.Usuario;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

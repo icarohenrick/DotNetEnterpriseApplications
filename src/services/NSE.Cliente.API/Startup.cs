@@ -4,8 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSE.Clientes.API.Configuration;
-using NFE.WepAPI.Core.Identidade;
 using MediatR;
+using NSE.WepAPI.Core.Identidade;
 
 namespace NSE.Clientes.API
 {

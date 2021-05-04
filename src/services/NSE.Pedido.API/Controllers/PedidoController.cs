@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NFE.WepAPI.Core.Controllers;
-using NFE.WepAPI.Core.Usuario;
 using NSE.Core.Mediator;
 using NSE.Pedidos.API.Application.Commands;
 using NSE.Pedidos.API.Application.Queries;
+using NSE.WepAPI.Core.Controllers;
+using NSE.WepAPI.Core.Usuario;
 using System.Threading.Tasks;
 
 namespace NSE.Pedidos.API.Controllers

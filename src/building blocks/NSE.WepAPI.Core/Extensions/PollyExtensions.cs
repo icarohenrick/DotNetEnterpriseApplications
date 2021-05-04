@@ -4,7 +4,7 @@ using Polly.Retry;
 using System;
 using System.Net.Http;
 
-namespace NFE.WepAPI.Core.Extensions
+namespace NSE.WepAPI.Core.Extensions
 {
     public static class PollyExtensions
     {

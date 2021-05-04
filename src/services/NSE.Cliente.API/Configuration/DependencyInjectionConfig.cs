@@ -2,14 +2,13 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using NFE.WepAPI.Core.Usuario;
 using NSE.Clientes.API.Application.Commands;
 using NSE.Clientes.API.Application.Events;
 using NSE.Clientes.API.Data;
 using NSE.Clientes.API.Data.Repository;
 using NSE.Clientes.API.Models;
-using NSE.Clientes.API.Services;
 using NSE.Core.Mediator;
+using NSE.WepAPI.Core.Usuario;
 
 namespace NSE.Clientes.API.Configuration
 {

@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using NFE.WepAPI.Core.Controllers;
 using NSE.Core.Messages.Integration;
 using NSE.Identidade.API.Models;
 using NSE.Identidade.API.Services;
 using NSE.MessageBus;
+using NSE.WepAPI.Core.Controllers;
 
 namespace NSE.Identidade.API.Controllers
 {

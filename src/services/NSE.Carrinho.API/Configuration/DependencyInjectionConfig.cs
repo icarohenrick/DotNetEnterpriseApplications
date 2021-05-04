@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using NFE.WepAPI.Core.Usuario;
 using NSE.Carrinho.API.Data;
+using NSE.WepAPI.Core.Usuario;
 
 namespace NSE.Carrinho.API.Configuration
 {

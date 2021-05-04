@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NFE.WepAPI.Core.Controllers;
-using NFE.WepAPI.Core.Usuario;
 using NSE.Clientes.API.Application.Commands;
 using NSE.Clientes.API.Models;
 using NSE.Core.Mediator;
-using System;
+using NSE.WepAPI.Core.Controllers;
+using NSE.WepAPI.Core.Usuario;
 using System.Threading.Tasks;
 
 namespace NSE.Clientes.API.Controllers

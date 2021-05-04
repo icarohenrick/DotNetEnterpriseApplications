@@ -1,4 +1,4 @@
-﻿using NFE.WepAPI.Core.Usuario;
+﻿using NSE.WepAPI.Core.Usuario;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
