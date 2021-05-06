@@ -11,7 +11,7 @@ COPY ["./web/NSE.WebApp.MVC/NSE.WebApp.MVC.csproj", "web/NSE.WebApp.MVC/"]
 COPY ["./building blocks/NSE.Core/NSE.Core.csproj", "building blocks/NSE.WebApp.Core/"]
 COPY ["./building blocks/NSE.WepAPI.Core/NSE.WepAPI.Core.csproj", "building blocks/NSE.WebApi.Core/"]
 
-RUN dotnet restore "src/web/NSE.WebApp.MVC/NSE.WebApp.MVC.csproj"
+RUN dotnet restore "web/NSE.WebApp.MVC/NSE.WebApp.MVC.csproj"
 COPY . .
 WORKDIR "web/NSE.WebApp.MVC"
 RUN dotnet build "NSE.WebApp.MVC.csproj" -c Release -o /app/build

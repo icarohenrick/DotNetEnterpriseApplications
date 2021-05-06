@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetDevPack.Security.JwtExtensions;
+using System.Net.Http;
 
 namespace NSE.WepAPI.Core.Identidade
 {
@@ -52,6 +53,8 @@ namespace NSE.WepAPI.Core.Identidade
             }).AddJwtBearer(bearerOptions =>
             {
                 bearerOptions.RequireHttpsMetadata = true;
+                bearerOptions.BackchannelHttpHandler = 
+                    new HttpClientHandler { ServerCertificateCustomValidationCallback = delegate { return true; } };
                 bearerOptions.SaveToken = true;
                 bearerOptions.SetJwksOptions(new JwkOptions(appSettings.AutenticacaoJwksURL));
             });
